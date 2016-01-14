@@ -1,0 +1,4 @@
+@import url(fonts/font.css);
+html{background: url(../img/background.png);}
+*{font-family: "Martel sans"; color:#bdc3c7; margin: 0; padding: 0; text-decoration: none;}
+h1{color: #f1c40f;}
