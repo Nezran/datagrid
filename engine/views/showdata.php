@@ -4,10 +4,10 @@
 	<caption>Table 1</caption>
 	<thead>
 	<tr>
-		<th>Header 1</th>
-		<th>Header 2</th>
-		<th>Header 3</th>
-		<th>Header 4</th>
+		<th><?php echo $this->column['0']; ?></th>
+		<th><?php echo $this->validemethod['1']; ?></th>
+		<th><?php echo $this->validemethod['2']; ?></th>
+		<th><?php echo $this->validemethod['3']; ?></th>
 	</tr>
 	</thead>
 	<tbody>

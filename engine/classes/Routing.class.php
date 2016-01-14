@@ -5,7 +5,7 @@ class Routing
 {
   public $method;
   public $url = array();
-  public $validemethod = ["list","update","add","del"];
+  public $validemethod = ["showdata","update","add","del"];
   public $page;
   public $validetot = ["5","10","20","50","100"];
   public $validorder = ["asc","desc"];
@@ -40,9 +40,9 @@ class Routing
     echo "</pre>";
 
 
-    $datagrid = new Datagrid($this->url);
+    $datagrid = new Datagrid($this->url,$this->validemethod);
 
-    self::template($this->method);
+    //self::template($this->method);
   }
 
   public function template($view){
@@ -50,7 +50,7 @@ class Routing
     if(!file_exists("engine/views/".$this->view.".php"))
 		{
 		    // si la page demandée existe pas
-		      $this->view = "list";
+		      $this->view = $this->validemethod['0'];
 		}
     $this->viewfile = "engine/views/".$this->view.".php";
     ob_start();

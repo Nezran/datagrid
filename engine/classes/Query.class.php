@@ -6,10 +6,10 @@ class Query
 
   public $var;
   public $database;
+  public $column = array();
 
   function __construct($database){
     $this->database = $database;
-    self::getColumn();
     //$test = new ConnectPDO();
   }
 
@@ -19,14 +19,13 @@ class Query
     if($req->rowCount()> 0){
       // on recupere le resultat sous forme de tableau imbriqué avec clé
       $data = $req->fetchAll();
+      for($i = 0; $i <= count($data) - 1; $i++ ){
+        $this->column[$i] = $data[$i]['COLUMN_NAME'];
+      }
     }else{
       echo "Error lors de la requête sql";
-
     }
-
-
   }
-
 }
 
 ?>

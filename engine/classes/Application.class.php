@@ -7,11 +7,10 @@ class Application
 	private static $database;
 
   public function __construct(){
-
 		spl_autoload_register(array(__CLASS__, 'autoload'));
 		self::geturl();
-    	self::getDatabase();
-    
+    self::getDatabase();
+
   }
 
   static function autoload($className){
