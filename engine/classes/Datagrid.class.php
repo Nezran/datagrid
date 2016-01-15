@@ -26,7 +26,8 @@ class Datagrid extends Application
   }
 
   public function showdata(){
-    $this->returnTorouteur(__FUNCTION__);
+    $this->query->getData();
+    $this->returnTorouteur(__FUNCTION__,$this->query->getData());
 
   }
 
@@ -42,9 +43,9 @@ class Datagrid extends Application
     $this->returnTorouteur(__FUNCTION__);
   }
 
-  public function returnTorouteur($method){
+  public function returnTorouteur($method,$data){
      try{
-      Routing::template($method,$this->column);
+      Routing::template($method,$this->column,$data);
     }
     catch(Exception $e){
        die('Error: '.$e->getMessage());

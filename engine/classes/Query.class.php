@@ -25,13 +25,19 @@ class Query
       return $this->column;
     }else{
       echo "Error lors de la requête sql";
-    }
-    
+    }    
   }
 
   function getData(){
-    $req = $this->database->conn->prepare("SELECT * FROM");
+    $req = $this->database->conn->prepare("SELECT * FROM article");
     $req->execute();
+    if($req->rowCount()> 0){
+      // on recupere le resultat sous forme de tableau imbriqué avec clé
+      $data = $req->fetchAll(\PDO::FETCH_OBJ);
+      return $data;
+    }else{
+      echo "Error lors de la requête sql";
+    }    
 
   }
 

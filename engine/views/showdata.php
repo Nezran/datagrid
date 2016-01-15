@@ -15,6 +15,21 @@
 	</tr>
 	</thead>
 	<tbody>
+	<?php
+
+	foreach ($this->data as $key) {
+		# code...
+		echo "<tr>";
+		echo "<td>".$key->id."</td>";
+		echo "<td>".$key->title."</td>";
+		echo "<td>".$key->category."</td>";
+		echo "<td>".$key->description."</td>";
+		echo "</tr>";
+	}
+
+	
+	?>
+
 	<tr>
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>

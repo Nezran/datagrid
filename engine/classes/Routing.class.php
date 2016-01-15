@@ -12,6 +12,7 @@ class Routing
   public $get;
   public $view;
   public $viewfile;
+  public $data;
 
   function __construct($get){
     self::route($get);
@@ -45,9 +46,10 @@ class Routing
     //self::template($this->method);
   }
 
-  public function template($view,$column){
+  public function template($view,$column,$data){
     $this->view = $view;
     $this->column = $column;
+    $this->data = $data;
     if(!file_exists("engine/views/".$this->view.".php"))
 		{
 		    // si la page demandée existe pas
