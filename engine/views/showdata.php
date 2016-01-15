@@ -4,10 +4,14 @@
 	<caption>Table 1</caption>
 	<thead>
 	<tr>
-		<th><?php echo $this->column['0']; ?></th>
-		<th><?php echo $this->validemethod['1']; ?></th>
-		<th><?php echo $this->validemethod['2']; ?></th>
-		<th><?php echo $this->validemethod['3']; ?></th>
+		<?php
+			for($i = 0; $i <= count($this->column) - 1; $i++ ){
+				echo "<th>";
+				echo $this->column[$i];
+				echo "</th>";
+			}
+
+		?>
 	</tr>
 	</thead>
 	<tbody>

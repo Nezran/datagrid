@@ -45,8 +45,9 @@ class Routing
     //self::template($this->method);
   }
 
-  public function template($view){
+  public function template($view,$column){
     $this->view = $view;
+    $this->column = $column;
     if(!file_exists("engine/views/".$this->view.".php"))
 		{
 		    // si la page demandée existe pas

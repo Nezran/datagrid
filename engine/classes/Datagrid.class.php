@@ -7,6 +7,7 @@ class Datagrid extends Application
   public $url = array();
   public $query;
   public $validemethod = array();
+  public $column;
 
   function __construct($url,$validemethod){
       $this->validemethod = $validemethod;
@@ -16,52 +17,38 @@ class Datagrid extends Application
 
   public function init(){
     $this->query = new Query(self::getDatabase());
-    $this->query->getColumn();
-    print_r($this->query);
+    $this->column = $this->query->getColumn();
 
-    switch ($this->url['method']) {
-      case $this->validemethod[0]:
-        $m = $this->validemethod[0];
-        $this->$m();
-        break;
-      case $this->validemethod[1]:
-        $m = $this->validemethod[1];
-        $this->$m();
-        break;
-      case $this->validemethod[2]:
-        $m = $this->validemethod[2];
-        $this->$m();
-        break;
-      case $this->validemethod[3]:
-        $m = $this->validemethod[3];
-        $this->$m();
-        break;
-    }
+    if(in_array($this->url['method'], $this->validemethod)){
+      $m = $this->url['method'];
+      $this->$m();
+    }    
   }
 
   public function showdata(){
-    try{
-      Routing::template($this->validemethod[0]);
-    }
-    catch(Exception $e){
-	     die('Error: '.$e->getMessage());
-    }
+    $this->returnTorouteur(__FUNCTION__);
 
   }
 
   public function update(){
-    echo "update";
-
+    $this->returnTorouteur(__FUNCTION__);
   }
 
   public function add(){
-    echo "add";
-
+    $this->returnTorouteur(__FUNCTION__);
   }
 
   public function del(){
-    echo "del";
+    $this->returnTorouteur(__FUNCTION__);
+  }
 
+  public function returnTorouteur($method){
+     try{
+      Routing::template($method,$this->column);
+    }
+    catch(Exception $e){
+       die('Error: '.$e->getMessage());
+    }
   }
 
 }
