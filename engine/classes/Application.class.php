@@ -22,7 +22,7 @@ class Application
   }
 
 	function geturl(){
-		$routing = new Routing(array_map('htmlentities',$_GET));
+		$routing = new Routing(array_map('htmlentities',$_GET),array_map('htmlentities',$_POST));
 	}
 
 	function getConfig(){

@@ -9,11 +9,16 @@ class Datagrid extends Application
   public $validemethod = array();
   public $column;
   public $category;
+  public $post;
+  public $requete;
+  public $col;
+  public $val;
 
 
-  function __construct($url,$validemethod){
+  function __construct($url,$validemethod,$post){
       $this->validemethod = $validemethod;
       $this->url = $url;
+      $this->post = $post;
       $this->init();
   }
 
@@ -22,6 +27,10 @@ class Datagrid extends Application
     $this->column = $this->query->getColumn();
     $this->category = $this->query->getCategory();
 
+    if(!empty($this->post)){
+      $this->getdatafromclient();      
+    }   
+
     if(in_array($this->url['method'], $this->validemethod)){
       $m = $this->url['method'];
       $this->$m();
@@ -29,24 +38,46 @@ class Datagrid extends Application
   }
 
   public function showdata(){
-    
-    $this->data = $this->query->getData();
-    //$this->returnTorouteur(__FUNCTION__,$this->query->getData());
+    $this->data = $this->query->getData($this->url);
 
   }
 
   public function update(){
-    $this->query->getDataDetail($this->url['article_id']);
-    //$this->returnTorouteur(__FUNCTION__);
+   
+    $this->detail = $this->query->getDataDetail($this->url['article_id']);
   }
 
   public function add(){
-    //$this->returnTorouteur(__FUNCTION__);
   }
 
   public function del(){
     $this->query->deleteData($this->url['article_id']);
-    //$this->returnTorouteur(__FUNCTION__);
+  }
+
+  public function getdatafromclient(){
+    var_dump($this->post);
+    if(!empty($this->post)){
+      echo "donnée dans le post";
+      if(!empty($this->post['id'])){
+        foreach ($this->post as $key => $value) {
+          if($key != 'id'){
+            $this->requete .= "$key = '$value' ,";
+          }          
+        }
+        $this->requete = trim($this->requete, ",");
+        var_dump($this->requete);
+        $this->query->updateData($this->requete,$this->post['id']);
+      }else{
+        foreach ($this->post as $key => $value) {
+          $this->col .= "$key,";
+          $this->val .= "'$value',";            
+        }
+        $this->col = trim($this->col, ",");
+        $this->val = trim($this->val, ",");
+        $this->query->insertData($this->col,$this->val);        
+        echo "post sans id";
+      }    
+    }   
   }
 
   public function returnTorouteur($method,$data){

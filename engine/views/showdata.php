@@ -1,16 +1,17 @@
 <h1>Page d'accueil de l'application</h1>
 
 <table border="1">
+	<a href="index.php?method=add">Ajouter une nouvelle entrée</a>
 	<caption>Table 1</caption>
 	<thead>
 		<?php
-		var_dump($this->datagrid);
+		//var_dump($this->datagrid);
 			for($i = 0; $i <= count($this->datagrid->column) - 1; $i++ ){
 				echo "<th>";
 				if($this->datagrid->column[$i] == 'category_id'){
 					echo "category";
 				}else{
-					echo $this->datagrid->column[$i];
+					echo "<a href=\"index.php?ordercolumn=".$this->datagrid->column[$i]."\">".$this->datagrid->column[$i]."</a>";
 				}
 				echo "</th>";
 			}

@@ -14,15 +14,17 @@ class Routing
   public $viewfile;
   public $data;
   public $datagrid;
+  public $post;
 
-  function __construct($get){
-    self::route($get);
+  function __construct($get,$post){
+    self::route($get,$post);
   }
 
-  public function route($get){
+  public function route($get,$post){
     // http://labo/datagrid/index.php?method=hacker&order=desc&p=10&tot=50&column_order=title&column_search=description&search=jesuisunblablabla
 
     $this->url = $get;
+    $this->post = $post;
 
     if(!isset($this->url['tot']) || (!in_array($this->url['tot'],$this->validetot))){
       $this->url['tot'] = $this->validetot['1'];
@@ -42,7 +44,7 @@ class Routing
     echo "</pre>";
 
 
-    $this->datagrid = new Datagrid($this->url,$this->validemethod);
+    $this->datagrid = new Datagrid($this->url,$this->validemethod,$this->post);
     $this->template();
   }
 
