@@ -13,6 +13,7 @@ class Routing
   public $view;
   public $viewfile;
   public $data;
+  public $datagrid;
 
   function __construct($get){
     self::route($get);
@@ -41,21 +42,16 @@ class Routing
     echo "</pre>";
 
 
-    $datagrid = new Datagrid($this->url,$this->validemethod);
-
-    //self::template($this->method);
+    $this->datagrid = new Datagrid($this->url,$this->validemethod);
+    $this->template();
   }
 
-  public function template($view,$column,$data){
-    $this->view = $view;
-    $this->column = $column;
-    $this->data = $data;
-    if(!file_exists("engine/views/".$this->view.".php"))
-		{
-		    // si la page demandée existe pas
-		      $this->view = $this->validemethod['0'];
-		}
-    $this->viewfile = "engine/views/".$this->view.".php";
+  public function template(){
+    if($this->url['method'] != $this->validemethod['3']){
+      $this->viewfile = "engine/views/".$this->url['method'].".php";
+    }else{
+      $this->viewfile = "engine/views/".$this->validemethod['0'].".php";
+    }    
     ob_start();
   	require_once $this->viewfile;
     $content = ob_get_clean();
@@ -68,4 +64,11 @@ class Routing
 
 
 }
+/*
+if(!file_exists("engine/views/".$this->view.".php"))
+    {
+        // si la page demandée existe pas
+          $this->view = $this->validemethod['0'];
+    }
+*/
 ?>

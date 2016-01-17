@@ -26,20 +26,4 @@ class ConnectPDO
 
 
 }
-
-
-
-/*
-try{
-  $strConnection = 'mysql:host='.$this->config['host'].';dbname='.$this->config['dbname'];
-  $arrExtraParam= array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
-  $this->_pdo = new \PDO($strConnection, $this->config['user'], $this->config['password'], $arrExtraParam);
-  $this->_pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
-  $this->_pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
-}catch(PDOException $exception){
-        echo "Connection error: " . $exception->getMessage();
-}
-return ($this->conn);
-}
-*/
 ?>

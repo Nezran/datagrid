@@ -7,8 +7,8 @@ class Application
 	private static $database;
 
   public function __construct(){
-		spl_autoload_register(array(__CLASS__, 'autoload'));
-		self::geturl();
+	spl_autoload_register(array(__CLASS__, 'autoload'));
+	self::geturl();
     self::getDatabase();
 
   }
