@@ -37,14 +37,32 @@ for($pa=1; $pa <= $this->datagrid->query->nbrpage;$pa++){
 					echo "category";
 				}else{
 					echo "<a href=\"index.php?ordercolumn=".$this->datagrid->column[$i]."&order=".$this->datagrid->url['order']."&tot=".$this->datagrid->url['tot']."&p=".$this->url['p']."\">".$this->datagrid->column[$i]."</a>";
-				}
-				echo "</th>";
+				}echo "</th>";
+
+
 			}
 			echo "<th>maj</th>";
 		?>
 	</thead>
 	<tbody>
 	<?php
+	echo "<tr>";
+		for($i = 0; $i <= count($this->datagrid->column) - 1; $i++ ) {
+			echo "<td>";
+			if ($this->datagrid->column[$i] == 'category_id') {
+				echo "<select>";
+				echo "<option value=\"\">Toute</option>";
+				foreach ($this->datagrid->category as $key => $value) {
+
+					echo "<option value=\"" . $value . "\">" . $this->datagrid->category[$key]['name'] . "</option>";
+				}
+				echo "</select>";
+			} else {
+				echo "<input type=\"text\" name=\"".$this->datagrid->column[$i]."\">";
+			}
+		}
+	echo "</tr>";
+
 		for($i = 0; $i <= count($this->datagrid->data) - 1; $i++ ){
 			$in = 0;
 			echo "<tr>";		

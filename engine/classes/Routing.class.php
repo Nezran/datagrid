@@ -5,7 +5,7 @@ class Routing
 {
   public $method;
   public $url = array();
-  public $validemethod = ["showdata","update","add","del"];
+  public $validemethod = ["showdata","update","add","del","editcat"];
   public $page;
   public $validetot = ["5","10","20","50","100"];
   public $validorder = ["asc","desc"];
