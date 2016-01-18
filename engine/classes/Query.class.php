@@ -127,7 +127,20 @@ class Query
     $req->execute();   
   }
 
-  
+  function addcategory(){
+    $req = $this->database->conn->prepare("INSERT INTO `category` (`id`, `name`) VALUES (NULL, '')");
+    $req->execute();
+  }
+
+  function delcategory($category_id){
+    $req = $this->database->conn->prepare("DELETE FROM category WHERE id = ".$category_id."");
+    $req->execute();
+    if($req->rowCount()> 0){
+    }else{
+      echo "Error lors de la requête sql";
+    }
+
+  }
   
 
   function test(){

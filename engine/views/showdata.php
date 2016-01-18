@@ -26,7 +26,8 @@ for($pa=1; $pa <= $this->datagrid->query->nbrpage;$pa++){
 	</select>
 </form>
 <table border="1">
-	<a href="index.php?method=add">Ajouter une nouvelle entrée</a>
+	<a href="index.php?method=add">Ajouter une nouvelle entrée</a><br>
+	<a href="index.php?method=editcat">Modifier les catégories</a>
 	<caption>Table 1</caption>
 	<thead>
 		<?php
@@ -80,7 +81,7 @@ for($pa=1; $pa <= $this->datagrid->query->nbrpage;$pa++){
 				}
 				$in++;
 			}
-			echo "<td><a href=\"index.php?method=update&article_id=".$this->datagrid->data[$i]->id."\">Update</a> - <a href=\"index.php?method=del&article_id=".$this->datagrid->data[$i]->id."\">Delete</a></td>";
+			echo "<td><a href=\"index.php?method=update&article_id=".$this->datagrid->data[$i]->id."\">Update</a> - <a href=\"index.php?action=del&article_id=".$this->datagrid->data[$i]->id."\">Delete</a></td>";
 			echo "</tr>";
 		}	
 	?>	

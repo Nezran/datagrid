@@ -7,6 +7,7 @@ class Datagrid extends Application
   public $url = array();
   public $query;
   public $validemethod = array();
+  public $valideaction = array();
   public $column;
   public $category;
   public $post;
@@ -15,8 +16,9 @@ class Datagrid extends Application
   public $val;
 
 
-  function __construct($url,$validemethod,$post){
+  function __construct($url,$validemethod,$post,$valideaction){
       $this->validemethod = $validemethod;
+      $this->valideaction = $valideaction;
       $this->url = $url;
       $this->post = $post;
       $this->init();
@@ -34,7 +36,12 @@ class Datagrid extends Application
     if(in_array($this->url['method'], $this->validemethod)){
       $m = $this->url['method'];
       $this->$m();
-    }    
+    }
+
+    if(in_array($this->url['action'], $this->valideaction)){
+      $m = $this->url['action'];
+      $this->$m();
+    }
   }
 
   public function showdata(){
@@ -54,9 +61,17 @@ class Datagrid extends Application
     $this->category = $this->query->getCategory();
   }
 
+  public function delcat(){
+    $this->query->delcategory($this->url['category_id']);
+  }
+
+  public function addcat(){
+    $this->query->addcategory();
+    $this->category = $this->query->getCategory();
+  }
+
   public function del(){
     $this->query->deleteData($this->url['article_id']);
-    $this->data = $this->query->getData($this->url);
   }
 
   public function getdatafromclient(){

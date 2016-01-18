@@ -5,7 +5,8 @@ class Routing
 {
   public $method;
   public $url = array();
-  public $validemethod = ["showdata","update","add","del","editcat"];
+  public $validemethod = ["showdata","update","add","editcat","addcat"];
+  public $valideaction= ["addcat","del","delcat"];
   public $page;
   public $validetot = ["5","10","20","50","100"];
   public $validorder = ["asc","desc"];
@@ -28,6 +29,9 @@ class Routing
 
     if(!isset($this->url['tot']) || (!in_array($this->url['tot'],$this->validetot))){
       $this->url['tot'] = $this->validetot['1'];
+    }
+    if(!isset($this->url['action']) || (!in_array($this->url['action'],$this->valideaction))){
+      $this->url['action'] = '';
     }
     if(!isset($this->url['method']) || (!in_array($this->url['method'],$this->validemethod))){
       $this->url['method'] = $this->validemethod['0'];
@@ -55,16 +59,16 @@ class Routing
     echo "</pre>";
 
 
-    $this->datagrid = new Datagrid($this->url,$this->validemethod,$this->post);
+    $this->datagrid = new Datagrid($this->url,$this->validemethod,$this->post,$this->valideaction);
     $this->template();
   }
 
   public function template(){
-    if($this->url['method'] != $this->validemethod['3']){
+    //if($this->url['method'] != $this->validemethod['3']){
       $this->viewfile = "engine/views/".$this->url['method'].".php";
-    }else{
-      $this->viewfile = "engine/views/".$this->validemethod['0'].".php";
-    }    
+    //}else{
+      //$this->viewfile = "engine/views/".$this->validemethod['0'].".php";
+    //}
     ob_start();
   	require_once $this->viewfile;
     $content = ob_get_clean();
