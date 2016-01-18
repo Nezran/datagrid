@@ -52,6 +52,7 @@ class Datagrid extends Application
 
   public function del(){
     $this->query->deleteData($this->url['article_id']);
+    $this->data = $this->query->getData($this->url);
   }
 
   public function getdatafromclient(){

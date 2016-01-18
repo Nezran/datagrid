@@ -1,5 +1,30 @@
 <h1>Page d'accueil de l'application</h1>
 
+
+<?php
+echo "<pre>";
+//var_dump($this->validetot);
+echo "</pre>";
+
+for($pa=1; $pa <= $this->datagrid->query->nbrpage;$pa++){
+	echo "<a href=\"index.php?ordercolumn=".$this->url['ordercolumn']."&order=".$this->datagrid->url['order']."&tot=".$this->datagrid->url['tot']."&p=".$pa."\">".$pa."</a>";
+
+}
+?>
+<br>
+<form metod="get" action="index.php">
+	<select name="tot" id="tot">
+		<?php
+		foreach($this->validetot as $key => $value){
+			echo "<option ";
+			if($this->url['tot'] == $value){
+				echo "selected";
+			}
+			echo " value=\"".$value."\">".$value."</option>";
+		}
+		?>
+	</select>
+</form>
 <table border="1">
 	<a href="index.php?method=add">Ajouter une nouvelle entrée</a>
 	<caption>Table 1</caption>
@@ -11,7 +36,7 @@
 				if($this->datagrid->column[$i] == 'category_id'){
 					echo "category";
 				}else{
-					echo "<a href=\"index.php?ordercolumn=".$this->datagrid->column[$i]."\">".$this->datagrid->column[$i]."</a>";
+					echo "<a href=\"index.php?ordercolumn=".$this->datagrid->column[$i]."&order=".$this->datagrid->url['order']."&tot=".$this->datagrid->url['tot']."&p=".$this->url['p']."\">".$this->datagrid->column[$i]."</a>";
 				}
 				echo "</th>";
 			}
@@ -43,3 +68,19 @@
 	?>	
 	</tbody>
 </table>
+
+<script>
+	jQuery(function($){
+		$('#tot').on('change', function(e){
+			this.form.submit()
+		});
+	});
+	/*jQuery(function($){
+		$("#tot").change(function(e){
+
+			window.location.href += "?tot="+$('#tot').val();
+			e.preventDefault();
+			console.log(window.location);
+		});
+	});*/
+</script>

@@ -10,7 +10,6 @@ class Application
 	spl_autoload_register(array(__CLASS__, 'autoload'));
 	self::geturl();
     self::getDatabase();
-
   }
 
   static function autoload($className){

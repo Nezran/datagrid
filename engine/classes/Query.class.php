@@ -9,6 +9,7 @@ class Query
   public $column = array();
   public $category;
   public $url;
+  public $nbrpage;
 
   function __construct($database){
     $this->database = $database;
@@ -53,12 +54,17 @@ class Query
       echo "Error lors de la requête sql";
     }
     self::getColumn();
+    var_dump($total);
     
     if(!isset($this->url['ordercolumn']) || (!in_array($this->url['ordercolumn'],$this->column))){
       $this->url['ordercolumn'] = "id";
     }
-
-    $req = $this->database->conn->prepare("SELECT * FROM article ORDER BY ".$this->url['ordercolumn']." ".$url['order']." ");
+    $this->nbrpage = ceil($total['nbrarticle']/$this->url['tot']);
+    if(!isset($this->url['p']) || (!is_numeric($this->url['p'])) || ($this->url['p'] > $this->nbrpage)){
+      $this->url['p'] ="1";
+    }
+    $req = $this->database->conn->prepare("SELECT * FROM (SELECT * FROM article LIMIT ".(($this->url['p'] - 1)*$this->url['tot']).",".$this->url['tot'].") a ORDER BY a.".$this->url['ordercolumn']." ".$url['order']."");
+    var_dump($req);
     $req->execute();
     if($req->rowCount()> 0){
       // on recupere le resultat sous forme de tableau imbriqué avec clé

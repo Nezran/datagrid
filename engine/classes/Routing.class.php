@@ -34,10 +34,21 @@ class Routing
     }
     if(!isset($this->url['order']) || (!in_array($this->url['order'],$this->validorder))){
       $this->url['order'] = $this->validorder['0'];
+    }else{
+      if($this->url['order'] ==  $this->validorder['0']){
+        $this->url['order'] =  $this->validorder['1'];
+      }else{
+        $this->url['order'] =  $this->validorder['0'];
+      }
     }
     if(!isset($this->url['p']) || (!is_numeric($this->url['p']))){
       $this->url['p'] ="1";
     }
+
+    if(!isset($this->url['ordercolumn'])){
+      $this->url['ordercolumn'] ="id";
+    }
+
 
     echo "<pre>";
     var_dump($this->url);
