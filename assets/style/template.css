@@ -2,3 +2,19 @@
 html{background: url(../img/background.png);}
 *{font-family: "Martel sans"; color:#bdc3c7; margin: 0; padding: 0; text-decoration: none;}
 h1{color: #f1c40f;}
+.page-link{
+    padding: 5px 5px 5px 5px;
+    background: rgba(84, 84, 84, 0.71);
+    margin-left: 4px;
+    width: 20px;
+    display: block;
+    line-height: 23px;
+    float: left;
+    height: 20px;
+    text-align: center;
+    border: 1px solid rgb(95, 95, 95);
+}
+.page-link:hover{
+    background: rgb(56, 55, 55);
+    border: 1px solid rgb(125, 125, 125);
+}
