@@ -3,11 +3,13 @@
 
 <?php
 echo "<pre>";
-//var_dump($this->datagrid->query->nbrpage);
+var_dump($this->datagrid->url['where']);
 echo "</pre>";
 
 echo $this->url['p'];
 echo "<br>";
+
+//". !empty($this->datagrid->url['where'])? $this->datagrid->url['where']:''."
 
 if(($this->url['p'] - 2) >= 1){
     echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=" . ($this->datagrid->url['p'] - 1) ."\">&laquo</a>";

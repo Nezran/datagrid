@@ -50,7 +50,7 @@ class Routing
                 $this->url['order'] = $this->validorder['0'];
             }
         }
-        if (!isset($this->url['p']) || (!is_numeric($this->url['p']))) {
+        if (!isset($this->url['p']) || (!is_numeric($this->url['p'])) || (($this->url['p']) <= 1 )) {
             $this->url['p'] = "1";
         }
 

@@ -57,13 +57,18 @@ class Datagrid extends Application
             if (in_array($key, $this->valsearch)) {
                 if (!empty($value)) {
                     $this->where .= " " . $key . " LIKE '%" . $value . "%' AND";
+                    $this->url['where'] = "&".$key."=".$value ;
                 }
             }
         }
         if (!is_null($this->where)) {
             $this->where = rtrim($this->where, "AND");
             $this->where = "WHERE ".$this->where;
+
+            $this->url['where'] = "&action=search".$this->url['where'];
+            var_dump($this->url['where']);
         }
+
     }
 
     public function showdata()
