@@ -1,6 +1,6 @@
 @import url(fonts/font.css);
 html{background: url(../img/background.png);}
-*{font-family: "Martel sans"; color:#bdc3c7; margin: 0; padding: 0; text-decoration: none;}
+*{font-family: "Martel sans"; color:#bdc3c7; margin: 0; padding: 0; text-decoration: none; font-style: 100;}
 h1{color: #f1c40f;}
 .page-link{
     padding: 5px 5px 5px 5px;
@@ -20,13 +20,19 @@ h1{color: #f1c40f;}
 }
 
 table.data{
+    background: rgb(228, 228, 228);
     border-collapse: collapse;
     width: 100%;
 }
 .data input{
     width: 100%;
 }
+.data td{
+    padding: 10px 0 10px 0;
+}
 .data th{
+    text-transform: capitalize;
+    padding: 16px;
     background :rgb(241, 196, 15);
 }
 .data *{
@@ -43,7 +49,3 @@ table.data{
     transition: all .125s ease-in-out;
 }
 
-tbody tr:nth-child(1n+1) {
-    background-color:rgb(222, 222, 222);
-    transition: all .125s ease-in-out;
-}
