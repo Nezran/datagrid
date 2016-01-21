@@ -43,7 +43,7 @@ if(($this->url['p'] +2) <= $this->datagrid->query->nbrpage){
         ?>
     </select>
 </form>
-<table border="1">
+<table class="data">
     <a href="index.php?method=add">Ajouter une nouvelle entrée</a><br>
     <a href="index.php?method=editcat">Modifier les catégories</a>
     <caption>Table 1</caption>
@@ -54,8 +54,14 @@ if(($this->url['p'] +2) <= $this->datagrid->query->nbrpage){
         echo "<th>";
         if ($this->datagrid->column[$i] == 'category_id') {
             echo "category";
-        } else {
-            echo "<a href=\"index.php?ordercolumn=" . $this->datagrid->column[$i] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=1\">" . $this->datagrid->column[$i] . "</a>";
+        } elseif($this->url['ordercolumn'] == $this->datagrid->column[$i]) {
+            if($this->datagrid->url['order'] == 'desc'){
+                echo "<a href=\"index.php?ordercolumn=" . $this->datagrid->column[$i] . "&order=asc&tot=" . $this->datagrid->url['tot'] . "&p=1\">" . $this->datagrid->column[$i] . "</a>";
+            }else{
+                echo "<a href=\"index.php?ordercolumn=" . $this->datagrid->column[$i] . "&order=desc&tot=" . $this->datagrid->url['tot'] . "&p=1\">" . $this->datagrid->column[$i] . "</a>";
+            }
+        }else{
+            echo "<a href=\"index.php?ordercolumn=" . $this->datagrid->column[$i] . "&order=asc&tot=" . $this->datagrid->url['tot'] . "&p=1\">" . $this->datagrid->column[$i] . "</a>";
         }
         echo "</th>";
 

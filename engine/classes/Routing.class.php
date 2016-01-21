@@ -43,12 +43,6 @@ class Routing
         }
         if (!isset($this->url['order']) || (!in_array($this->url['order'], $this->validorder))) {
             $this->url['order'] = $this->validorder['0'];
-        } else {
-            if ($this->url['order'] == $this->validorder['0']) {
-                $this->url['order'] = $this->validorder['1'];
-            } else {
-                $this->url['order'] = $this->validorder['0'];
-            }
         }
         if (!isset($this->url['p']) || (!is_numeric($this->url['p'])) || (($this->url['p']) <= 1 )) {
             $this->url['p'] = "1";
@@ -59,9 +53,7 @@ class Routing
         }
 
 
-        echo "<pre>";
         var_dump($this->url);
-        echo "</pre>";
 
 
         $this->datagrid = new Datagrid($this->url, $this->validemethod, $this->post, $this->valideaction);

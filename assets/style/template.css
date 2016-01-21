@@ -18,3 +18,32 @@ h1{color: #f1c40f;}
     background: rgb(56, 55, 55);
     border: 1px solid rgb(125, 125, 125);
 }
+
+table.data{
+    border-collapse: collapse;
+    width: 100%;
+}
+.data input{
+    width: 100%;
+}
+.data th{
+    background :rgb(241, 196, 15);
+}
+.data *{
+    color: rgb(72, 72, 72);
+}
+.data tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.data tbody tr:nth-child(2n-1) {
+    background-color: rgb(245, 245, 245);
+    transition: all .125s ease-in-out;
+}
+
+tbody tr:nth-child(1n+1) {
+    background-color:rgb(222, 222, 222);
+    transition: all .125s ease-in-out;
+}

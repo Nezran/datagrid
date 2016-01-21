@@ -19,11 +19,12 @@ class Query
 
     function getColumn()
     {
-        $req = $this->database->conn->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='article'");
+        $req = $this->database->conn->prepare("SELECT COLUMN_NAME, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='article'");
         $req->execute();
         if ($req->rowCount() > 0) {
             // on recupere le resultat sous forme de tableau imbriqué avec clé
             $data = $req->fetchAll();
+            var_dump($data);
             for ($i = 0; $i <= count($data) - 1; $i++) {
                 $this->column[$i] = $data[$i]['COLUMN_NAME'];
             }
@@ -68,8 +69,10 @@ class Query
         if (!isset($this->url['p']) || (!is_numeric($this->url['p'])) || ($this->url['p'] > $this->nbrpage)) {
             $this->url['p'] = "1";
         }
-        $req = $this->database->conn->prepare("SELECT * FROM (SELECT * FROM article   LIMIT " . (($this->url['p'] - 1) * $this->url['tot']) . "," . $this->url['tot'] . ") a ".$where." ORDER BY a." . $this->url['ordercolumn'] . " " . $url['order'] . " ");
+        $req = $this->database->conn->prepare("SELECT * FROM article ".$where." ORDER BY " . $this->url['ordercolumn'] . " " . $url['order'] . " LIMIT " . (($this->url['p'] - 1) * $this->url['tot']) . "," . $this->url['tot'] . " ");
         var_dump($req);
+        // requete imbriquée pour trier la page courante
+        // SELECT * FROM (SELECT * FROM article   LIMIT " . (($this->url['p'] - 1) * $this->url['tot']) . "," . $this->url['tot'] . ") a ".$where." ORDER BY a." . $this->url['ordercolumn'] . " " . $url['order'] . " ");
         $req->execute();
         if ($req->rowCount() > 0) {
             // on recupere le resultat sous forme de tableau imbriqué avec clé
