@@ -95,13 +95,18 @@ class Datagrid extends Application
     public function editcat()
     {
         $this->category = $this->query->getCategory();
+        var_dump($this->category);
     }
 
 
     public function addcat()
     {
         $this->query->addcategory();
+    }
+    public function updatecat(){
         $this->category = $this->query->getCategory();
+        var_dump($this->category);
+
     }
 
     public function del()
@@ -114,24 +119,30 @@ class Datagrid extends Application
         var_dump($this->post);
         if (!empty($this->post)) {
             echo "donnée dans le post";
-            if (!empty($this->post['id'])) {
-                foreach ($this->post as $key => $value) {
-                    if ($key != 'id') {
-                        $this->requete .= "$key = '$value' ,";
+            if($this->post['action'] == 'updatecat'){
+                echo " prout ";
+
+            }elseif($this->post['action'] == 'insertdata'){
+
+                if (!empty($this->post['id'])) {
+                    foreach ($this->post as $key => $value) {
+                        if ($key != 'id') {
+                            $this->requete .= "$key = '$value' ,";
+                        }
                     }
+                    $this->requete = trim($this->requete, ",");
+                    var_dump($this->requete);
+                    $this->query->updateData($this->requete, $this->post['id']);
+                } else {
+                    foreach ($this->post as $key => $value) {
+                        $this->col .= "$key,";
+                        $this->val .= "'$value',";
+                    }
+                    $this->col = trim($this->col, ",");
+                    $this->val = trim($this->val, ",");
+                    $this->query->insertData($this->col, $this->val);
+                    echo "post sans id";
                 }
-                $this->requete = trim($this->requete, ",");
-                var_dump($this->requete);
-                $this->query->updateData($this->requete, $this->post['id']);
-            } else {
-                foreach ($this->post as $key => $value) {
-                    $this->col .= "$key,";
-                    $this->val .= "'$value',";
-                }
-                $this->col = trim($this->col, ",");
-                $this->val = trim($this->val, ",");
-                $this->query->insertData($this->col, $this->val);
-                echo "post sans id";
             }
         }
     }

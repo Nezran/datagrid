@@ -2,6 +2,8 @@
 
 
 <form action="index.php?method=showdata" method="post">
+    <input type="hidden" name="action" value="insertdata">
+
     <?php
     for ($i = 0; $i <= count($this->datagrid->column) - 1; $i++) {
         echo "<p>";

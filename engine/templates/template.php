@@ -11,7 +11,7 @@
 
 <body>
 <div class="title">
-<span class="line-left"></span><h1>Datagrid</h1><span class="line-right"></span>
+<span class="line-left"></span><a href="index.php"><h1>Datagrid</h1></a><span class="line-right"></span>
 </div>
     <?php echo $content; ?>
 </body>
