@@ -10,8 +10,10 @@
 
 
 <body>
-<hr>
-<?php echo $content; ?>
+<div class="title">
+<span class="line-left"></span><h1>Datagrid</h1><span class="line-right"></span>
+</div>
+    <?php echo $content; ?>
 </body>
 
 

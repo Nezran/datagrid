@@ -24,7 +24,6 @@ class Query
         if ($req->rowCount() > 0) {
             // on recupere le resultat sous forme de tableau imbriqué avec clé
             $data = $req->fetchAll();
-            var_dump($data);
             for ($i = 0; $i <= count($data) - 1; $i++) {
                 $this->column[$i] = $data[$i]['COLUMN_NAME'];
             }
@@ -122,7 +121,6 @@ class Query
     {
         //INSERT INTO `article` (`id`, `category_id`, `name`, `title`, `description`, `superapp`, `fabi`, `salut`) VALUES (NULL, '2', 'das', 'asd', 'asd', 'asd', 'asd', 'asd');
         $req = $this->database->conn->prepare("INSERT INTO article ($col) VALUES ($val) ");
-        var_dump($req);
         $req->execute();
 
     }

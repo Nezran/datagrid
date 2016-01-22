@@ -1,16 +1,15 @@
-<h1>Page d'accueil de l'application</h1>
-
+<h2>Vos données</h2>
 
 <?php
 echo "<pre>";
-var_dump($this->datagrid->url['where']);
+//var_dump($this->datagrid->url['where']);
+//var_dump($GLOBALS);
 echo "</pre>";
 
-echo $this->url['p'];
 echo "<br>";
 
 //". !empty($this->datagrid->url['where'])? $this->datagrid->url['where']:''."
-
+echo "<div class=\"bloc-filter\">";
 if(($this->url['p'] - 2) >= 1){
     echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=" . ($this->datagrid->url['p'] - 1) ."\">&laquo</a>";
 }
@@ -19,7 +18,11 @@ echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['orderc
 for ($pa = 1; $pa <= $this->datagrid->query->nbrpage; $pa++) {
     if(($pa <= $this->url['p'] + 2) && ($pa >= $this->url['p'] - 2)){
         if($pa != $this->datagrid->query->nbrpage && $pa != 1) {
-            echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=" . $pa . "\">" . $pa . "</a>";
+            if($this->url['p'] == $pa){
+                echo "<a class=\"page-link current\">".$pa."</a>";
+            }else{
+                echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=" . $pa . "\">" . $pa . "</a>";
+            }
         }
     }
 }
@@ -27,10 +30,11 @@ echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['orderc
 if(($this->url['p'] +2) <= $this->datagrid->query->nbrpage){
     echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=" . ($this->datagrid->url['p'] + 1) ."\">&raquo</a>";
 }
-
+echo "</div>";
 ?>
-<br><br>
-<form metod="get" action="index.php">
+<div class="bloc-filter">
+    <p style="float: left;display: block;">Nombre par page</p>
+<form metod="get" action="index.php" style="float: right;">
     <select name="tot" id="tot">
         <?php
         foreach ($this->validetot as $key => $value) {
@@ -43,10 +47,15 @@ if(($this->url['p'] +2) <= $this->datagrid->query->nbrpage){
         ?>
     </select>
 </form>
+</div>
+<div class="bloc-filter">
+<a href="index.php?method=add">Ajouter une nouvelle entrée <img src="assets/img/new.png"></a>
+</div>
+<div class="bloc-filter">
+<a href="index.php?method=editcat">Modifier les catégories</a>
+</div>
 <table class="data">
-    <a href="index.php?method=add">Ajouter une nouvelle entrée</a><br>
-    <a href="index.php?method=editcat">Modifier les catégories</a>
-    <caption>Table 1</caption>
+
     <thead>
     <?php
     //var_dump($this->datagrid);
@@ -80,7 +89,7 @@ if(($this->url['p'] +2) <= $this->datagrid->query->nbrpage){
     for ($i = 0; $i <= count($this->datagrid->column) - 1; $i++) {
         echo "<td>";
         if ($this->datagrid->column[$i] == 'category_id') {
-            echo "<select name=\"category_id\">";
+            echo "<select name=\"category_id\" style=\"height: 39px;margin-top: 1px;\">";
             echo "<option value=\"\">Toute</option>";
             foreach ($this->datagrid->category as $key => $value) {
 
@@ -88,7 +97,7 @@ if(($this->url['p'] +2) <= $this->datagrid->query->nbrpage){
             }
             echo "</select>";
         } else {
-            echo "<input value=\"\" type=\"text\" name=\"" . $this->datagrid->column[$i] . "\"></td>";
+            echo "<input value=\"\" type=\"text\" placeholder=\"Recherche : ".$this->datagrid->column[$i]."\" name=\"" . $this->datagrid->column[$i] . "\"></td>";
         }
 
     }
@@ -113,7 +122,7 @@ if(($this->url['p'] +2) <= $this->datagrid->query->nbrpage){
             }
             $in++;
         }
-        echo "<td><a href=\"index.php?method=update&article_id=" . $this->datagrid->data[$i]->id . "\">Update</a> - <a href=\"index.php?action=del&article_id=" . $this->datagrid->data[$i]->id . "\">Delete</a></td>";
+        echo "<td class=\"backyellow\"><a href=\"index.php?method=update&article_id=" . $this->datagrid->data[$i]->id . "\"><img src=\"assets/img/edit.png\"></a><a href=\"index.php?action=del&article_id=" . $this->datagrid->data[$i]->id . "\" onclick=\"return(confirm('Etes-vous sûr de vouloir supprimer cette entrée?'));\"><img src=\"assets/img/del.png\"></a></td>";
         echo "</tr>";
     }
     ?>

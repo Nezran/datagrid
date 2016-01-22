@@ -1,10 +1,35 @@
 @import url(fonts/font.css);
 html{background: url(../img/background.png);}
 *{font-family: "Martel sans"; color:#bdc3c7; margin: 0; padding: 0; text-decoration: none; font-style: 100;}
-h1{color: #f1c40f;}
+h1{display: inline-block;color: #f1c40f; font-family: Tangerine;font-weight: 100; font-size: 7vw;text-shadow: 1px 1px 3px rgba(0,0,0);}
+h2{color: rgb(228, 228, 228);
+    font-family: Tangerine;
+    font-weight: 100;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 10px;
+    font-size: 70px;
+    text-shadow: 1px 1px 3px rgba(35,35,35);
+    margin-bottom: 20px;
+}
+
+.title{width:100%;}
+span.line-left {
+    margin-top: 66px;
+    float: left;
+    width: 40%;
+    background: rgb(241, 196, 15);
+    height: 1px;
+}
+span.line-right {
+    margin-top: 66px;
+    float: right;
+    width: 40%;
+    background: rgb(241, 196, 15);
+    height: 1px;
+}
 .page-link{
     padding: 5px 5px 5px 5px;
-    background: rgba(84, 84, 84, 0.71);
+    background: rgba(249, 249, 249, 0.13);
     margin-left: 4px;
     width: 20px;
     display: block;
@@ -15,7 +40,7 @@ h1{color: #f1c40f;}
     border: 1px solid rgb(95, 95, 95);
 }
 .page-link:hover{
-    background: rgb(56, 55, 55);
+    background: rgba(249, 249, 249, 0.5);
     border: 1px solid rgb(125, 125, 125);
 }
 
@@ -25,7 +50,10 @@ table.data{
     width: 100%;
 }
 .data input{
-    width: 100%;
+    width: calc(100% - 10px);
+    padding: 5px;
+    margin: 5px;
+    line-height: 27px;
 }
 .data td{
     padding: 10px 0 10px 0;
@@ -48,4 +76,30 @@ table.data{
     background-color: rgb(245, 245, 245);
     transition: all .125s ease-in-out;
 }
+.data img{
+    max-width: 18px;
+    float: left;
+    margin: 5px;
+}
+.data .backyellow{
+    background :rgb(241, 196, 15);
+}
 
+.bloc-filter {
+    float: left;
+    padding: 10px;
+    margin: 5px;
+    background: rgb(241, 196, 15);
+}
+.bloc-filter *{
+    color: rgb(72, 72, 72);
+}
+.bloc-filter img{
+    max-width: 18px;
+    float: left;
+    margin: 5px;
+}
+.current{
+    background: rgb(58, 58, 58);
+    color: rgb(255, 255, 255);
+}

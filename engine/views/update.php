@@ -1,4 +1,4 @@
-<h1>Modifier une entrée</h1>
+<h2>Modifier une entrée</h2>
 
 
 <form action="index.php?method=showdata" method="post">

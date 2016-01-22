@@ -1,4 +1,4 @@
-<h1>Modifier vos catégories</h1>
+<h2>Modifier vos catégories</h2>
 <a href="index.php?method=editcat&action=addcat">Ajouter une nouvelle catégorie</a>
 <form>
 <?php

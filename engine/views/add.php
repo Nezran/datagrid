@@ -1,4 +1,4 @@
-<h1>Ajouter une entrée</h1>
+<h2>Ajouter une entrée</h2>
 <form action="index.php?method=showdata" method="post">
 <?php
 			for($i = 0; $i <= count($this->datagrid->column) - 1; $i++ ){
