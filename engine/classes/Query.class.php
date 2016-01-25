@@ -10,6 +10,7 @@ class Query
     public $category;
     public $url;
     public $nbrpage;
+    public $totaldata;
 
     function __construct($database)
     {
@@ -44,7 +45,6 @@ class Query
         } else {
             echo "Error lors de la requête sql";
         }
-
     }
 
     function getData($url,$where)
@@ -55,6 +55,7 @@ class Query
         $req->execute();
         if ($req->rowCount() > 0) {
             $total = $req->fetch();
+            $this->totaldata = $total;
         } else {
             echo "Error lors de la requête sql";
         }

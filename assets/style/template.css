@@ -1,8 +1,10 @@
 @import url(fonts/font.css);
 html{background: url(../img/background.png);}
-*{font-family: "Martel sans"; color:#bdc3c7; margin: 0; padding: 0; text-decoration: none; font-style: 100;}
-h1{display: inline-block;color: #f1c40f; font-family: Tangerine;font-weight: 100; font-size: 7vw;text-shadow: 1px 1px 3px rgba(0,0,0);}
-h2{color: rgb(228, 228, 228);
+*{font-family: "Martel sans"; color: white; margin: 0; padding: 0; text-decoration: none; font-style: 100;}
+h1{display: inline-block;color: #e74c3c; font-family: Tangerine;font-weight: 100; font-size: 7vw;text-shadow: 1px 1px 3px rgba(0,0,0);}
+h2{color: rgb(228, 228, 228) !important;
+    float: left;
+    width:100%;
     font-family: Tangerine;
     font-weight: 100;
     background: rgb(37, 37, 37);
@@ -10,34 +12,93 @@ h2{color: rgb(228, 228, 228);
     font-size: 50px;
     text-shadow: 1px 1px 3px rgba(35,35,35);
     margin-bottom: 20px;
-    border-left: 5px solid rgb(241, 196, 15);
+    border-left: 5px solid #e74c3c;
+}
+header img {
+    margin-left: -40px;
+    margin-top: 12px;
+    display: inline-block;
+    position: absolute;
+}
+a {
+    color: #ecf0f1;
+}
+.form-data img {
+    max-width: 18px;
+    margin: 5px;
+}
+.form-data{
+    max-width: 400px;
+    border: 1px solid #e74c3c;
+    border-radius: 3px;
+    padding: 20px;
+    margin: 20px;
+}
+.form-data select{
+    min-width: 185px;
+}
+div.form-line {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+}
+.form-line p{
+    float: left;
+}
+.form-line input, select{
+    float: right;
+
+}
+
+.content p{
+    color: #ecf0f1;
+}
+.content td, th, h2, select, button, input, option{
+    color :rgb(72, 72, 72);
+
+}
+form{
+    float: left;
 }
 header{
     background: rgb(37, 37, 37);
     float: left;
     height: 60px;
     width:100%;
-    position: fixed;
+    margin-bottom: 50px;
 
 }
 
-.title{width:100%; margin-top: 80px;}
+header a{
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    border-bottom: 2px solid #AA372B;
+    box-shadow: inset 0 -2px #AA372B;
+    background: #E74C3C;
+    display: inline-block;
+    height: 59px;
+    line-height: 62px;
+    padding: 0 10px 0 50px;
+
+
+}
+
+.title{width:100%;}
 span.line-left {
     margin-top: 66px;
     float: left;
     width: 40%;
-    background: rgb(241, 196, 15);
+    background: #e74c3c;
     height: 1px;
 }
 span.line-right {
     margin-top: 66px;
     float: right;
     width: 40%;
-    background: rgb(241, 196, 15);
+    background: #e74c3c;
     height: 1px;
 }
 .page-link{
-    padding: 5px 5px 5px 5px;
+    padding: 4px 5px 3px 5px;
     background: rgba(249, 249, 249, 0.13);
     margin-left: 4px;
     width: 20px;
@@ -52,7 +113,9 @@ span.line-right {
     background: rgba(249, 249, 249, 0.5);
     border: 1px solid rgb(125, 125, 125);
 }
-
+table th{
+    color: #ecf0f1;
+}
 table.data{
     background: rgb(228, 228, 228);
     border-collapse: collapse;
@@ -65,16 +128,15 @@ table.data{
     line-height: 27px;
 }
 .data td{
+    text-align: center;
     padding: 10px 0 10px 0;
 }
 .data th{
     text-transform: capitalize;
     padding: 16px;
-    background :rgb(241, 196, 15);
+    background : #e74c3c;
 }
-.data *{
-    color: rgb(72, 72, 72);
-}
+
 .data tbody {
     display: table-row-group;
     vertical-align: middle;
@@ -91,17 +153,16 @@ table.data{
     margin: 5px;
 }
 .data .backyellow{
-    background :rgb(241, 196, 15);
+    background : #e74c3c;
 }
 
 .bloc-filter {
     float: left;
     padding: 10px;
     margin: 5px;
-    background: rgb(241, 196, 15);
+    background: #e74c3c;
 }
 .bloc-filter *{
-    color: rgb(72, 72, 72);
 }
 .bloc-filter img{
     max-width: 18px;

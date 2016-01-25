@@ -1,17 +1,19 @@
 <h2>Modifier une entrée</h2>
 
 
-<form action="index.php?method=showdata" method="post">
+<form action="index.php?method=showdata" method="post" class="form-data">
     <input type="hidden" name="action" value="insertdata">
 
     <?php
     for ($i = 0; $i <= count($this->datagrid->column) - 1; $i++) {
+        echo "<div class=\"form-line\">";
         echo "<p>";
         if ($this->datagrid->column[$i] == 'category_id') {
             echo "category";
         } else {
             echo $this->datagrid->column[$i];
         }
+        echo "</p>";
         $col = $this->datagrid->column[$i];
         if ($col == 'category_id') {
             echo "<select name=\"category_id\">";
@@ -30,7 +32,7 @@
                 echo "<input value=\"" . $this->datagrid->detail[0]->$col . "\" type=\"\" name=\"" . $this->datagrid->column[$i] . "\">";
             }
         }
-        echo "</p>";
+        echo "</div>";
     }
     ?>
     <input type="submit" value="mettre à jour">

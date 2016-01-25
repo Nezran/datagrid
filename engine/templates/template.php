@@ -10,17 +10,21 @@
 
 
 <body>
-<header>
-    <div>
-        <a href="index.php">Accueil</a>
-        <a href="index.php?method=editcat">Modifier les catégories</a>
-        <a href="index.php?method=add">Ajouter une nouvelle entrée</a>
-    </div>
-</header>
+
 <div class="title">
 <span class="line-left"></span><a href="index.php"><h1>Datagrid</h1></a><span class="line-right"></span>
 </div>
+<br>
+<header>
+    <div>
+        <a href="index.php"><img src="assets/img/home.png">Accueil</a>
+        <a href="index.php?method=editcat"> <img src="assets/img/edit.png"> Modifier les catégories</a>
+        <a href="index.php?method=add"> <img src="assets/img/new.png"> Ajouter une nouvelle entrée</a>
+    </div>
+</header>
+    <div class="content">
     <?php echo $content; ?>
+    </div>
 </body>
 
 

@@ -2,19 +2,23 @@
 
 <?php
 echo "<pre>";
-//var_dump($this->datagrid->url['where']);
-//var_dump($GLOBALS);
+//var_dump($this->datagrid);
 echo "</pre>";
 
 echo "<br>";
-
-//". !empty($this->datagrid->url['where'])? $this->datagrid->url['where']:''."
+echo "<div class=\"bloc-filter\">";
+echo "<p>Nombre total d'entrée : <b>";
+print_r($this->datagrid->query->totaldata['nbrarticle']."</b></p>");
+echo "</div>";
 echo "<div class=\"bloc-filter\">";
 if(($this->url['p'] - 2) >= 1){
     echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=" . ($this->datagrid->url['p'] - 1) ."\">&laquo</a>";
 }
-echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=1\">1</a>";
-
+if($this->url['p'] == '1') {
+    echo "<a class=\"page-link current\">1</a>";
+}else {
+    echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" .$this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=1\">1</a>";
+}
 for ($pa = 1; $pa <= $this->datagrid->query->nbrpage; $pa++) {
     if(($pa <= $this->url['p'] + 2) && ($pa >= $this->url['p'] - 2)){
         if($pa != $this->datagrid->query->nbrpage && $pa != 1) {
@@ -26,14 +30,18 @@ for ($pa = 1; $pa <= $this->datagrid->query->nbrpage; $pa++) {
         }
     }
 }
-echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=" . $this->datagrid->query->nbrpage . "\">" . $this->datagrid->query->nbrpage . "</a>";
+if($this->url['p'] == $this->datagrid->query->nbrpage) {
+    echo "<a class=\"page-link current\">" . $this->datagrid->query->nbrpage . "</a>";
+}else{
+    echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=" . $this->datagrid->query->nbrpage . "\">" . $this->datagrid->query->nbrpage . "</a>";
+}
 if(($this->url['p'] +2) <= $this->datagrid->query->nbrpage){
     echo "<a class=\"page-link\" href=\"index.php?ordercolumn=" . $this->url['ordercolumn'] . "&order=" . $this->datagrid->url['order'] . "&tot=" . $this->datagrid->url['tot'] . "&p=" . ($this->datagrid->url['p'] + 1) ."\">&raquo</a>";
 }
 echo "</div>";
 ?>
 <div class="bloc-filter">
-    <p style="float: left;display: block;">Nombre par page</p>
+    <p style="float: left;display: block;">Nombre par page &nbsp; </p>
 <form metod="get" action="index.php" style="float: right;">
     <select name="tot" id="tot">
         <?php
@@ -48,12 +56,7 @@ echo "</div>";
     </select>
 </form>
 </div>
-<div class="bloc-filter">
-<a href="index.php?method=add">Ajouter une nouvelle entrée <img src="assets/img/new.png"></a>
-</div>
-<div class="bloc-filter">
-<a href="index.php?method=editcat">Modifier les catégories</a>
-</div>
+
 <table class="data">
 
     <thead>
@@ -76,7 +79,7 @@ echo "</div>";
 
 
     }
-    echo "<th>maj</th>";
+    echo "<th>Action</th>";
     ?>
     </thead>
     <tbody>
