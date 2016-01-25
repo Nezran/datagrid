@@ -121,6 +121,7 @@ class Query
     {
         //INSERT INTO `article` (`id`, `category_id`, `name`, `title`, `description`, `superapp`, `fabi`, `salut`) VALUES (NULL, '2', 'das', 'asd', 'asd', 'asd', 'asd', 'asd');
         $req = $this->database->conn->prepare("INSERT INTO article ($col) VALUES ($val) ");
+        var_dump($req);
         $req->execute();
 
     }
@@ -134,7 +135,6 @@ class Query
 
     function addData($requete, $article_id)
     {
-
         $req = $this->database->conn->prepare("UPDATE article SET $requete WHERE `article`.`id` = $article_id;");
         $req->execute();
     }
@@ -142,6 +142,11 @@ class Query
     function addcategory()
     {
         $req = $this->database->conn->prepare("INSERT INTO `category` (`id`, `name`) VALUES (NULL, '')");
+        $req->execute();
+    }
+
+    function updatecategory($category_id, $name){
+        $req = $this->database->conn->prepare("UPDATE category SET name = '$name' WHERE category.id = $category_id");
         $req->execute();
     }
 

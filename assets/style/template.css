@@ -12,8 +12,16 @@ h2{color: rgb(228, 228, 228);
     margin-bottom: 20px;
     border-left: 5px solid rgb(241, 196, 15);
 }
+header{
+    background: rgb(37, 37, 37);
+    float: left;
+    height: 60px;
+    width:100%;
+    position: fixed;
 
-.title{width:100%;}
+}
+
+.title{width:100%; margin-top: 80px;}
 span.line-left {
     margin-top: 66px;
     float: left;

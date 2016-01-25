@@ -95,7 +95,6 @@ class Datagrid extends Application
     public function editcat()
     {
         $this->category = $this->query->getCategory();
-        var_dump($this->category);
     }
 
 
@@ -116,27 +115,35 @@ class Datagrid extends Application
 
     public function getdatafromclient()
     {
-        var_dump($this->post);
         if (!empty($this->post)) {
             echo "donnée dans le post";
             if($this->post['action'] == 'updatecat'){
                 echo " prout ";
+                foreach ($this->post as $key => $value) {
+                    if($key != 'action'){
+                       // $this->requete .= "$key = '$value' ,";
+                        $this->query->updatecategory($key, $value);
+                        //UPDATE category SET `name` = 'Microsofta' WHERE `category`.`id` = 2;
+                    }
+                }
 
             }elseif($this->post['action'] == 'insertdata'){
-
                 if (!empty($this->post['id'])) {
                     foreach ($this->post as $key => $value) {
-                        if ($key != 'id') {
-                            $this->requete .= "$key = '$value' ,";
+                        if ($key != 'id' ) {
+                            if($key != 'action'){
+                                $this->requete .= "$key = '$value' ,";
+                            }
                         }
                     }
                     $this->requete = trim($this->requete, ",");
-                    var_dump($this->requete);
                     $this->query->updateData($this->requete, $this->post['id']);
                 } else {
                     foreach ($this->post as $key => $value) {
-                        $this->col .= "$key,";
-                        $this->val .= "'$value',";
+                        if($key != 'action'){
+                            $this->col .= "$key,";
+                            $this->val .= "'$value',";
+                        }
                     }
                     $this->col = trim($this->col, ",");
                     $this->val = trim($this->val, ",");

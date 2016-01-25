@@ -10,6 +10,13 @@
 
 
 <body>
+<header>
+    <div>
+        <a href="index.php">Accueil</a>
+        <a href="index.php?method=editcat">Modifier les catégories</a>
+        <a href="index.php?method=add">Ajouter une nouvelle entrée</a>
+    </div>
+</header>
 <div class="title">
 <span class="line-left"></span><a href="index.php"><h1>Datagrid</h1></a><span class="line-right"></span>
 </div>

@@ -1,6 +1,6 @@
 <h2>Modifier vos catégories</h2>
 <a href="index.php?method=editcat&action=addcat">Ajouter une nouvelle catégorie</a>
-<form action="index.php" method="post">
+<form action="index.php?method=editcat" method="post">
     <input type="hidden" name="action" value="updatecat">
 <?php
 //var_dump($this->datagrid->category[0]['id']);
