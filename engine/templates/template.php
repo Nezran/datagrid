@@ -11,6 +11,18 @@
 
 <body>
 
+
+
+<?php
+if(isset($this->datagrid->query->alert)){
+    echo "<div class=\"alert\">";
+    echo "<a class=\"close\" href=\"#\">×</a>";
+    echo "<strong>Succès ! </strong>";
+    echo $this->datagrid->query->alert;
+    echo "</div>";
+}
+?>
+</div>
 <div class="title">
 <span class="line-left"></span><a href="index.php"><h1>Datagrid</h1></a><span class="line-right"></span>
 </div>
@@ -29,3 +41,20 @@
 
 
 </html>
+
+<script>
+    jQuery(function ($) {
+        $('.alert .close').on('click', function (e) {
+            $( ".alert" ).hide("fast");
+        });
+    });
+    /*jQuery(function($){
+     $("#tot").change(function(e){
+
+     window.location.href += "?tot="+$('#tot').val();
+     e.preventDefault();
+     console.log(window.location);
+     });
+     });*/
+</script>
+

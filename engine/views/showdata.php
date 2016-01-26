@@ -61,16 +61,15 @@ echo "</div>";
 
     <thead>
     <?php
-    //var_dump($this->datagrid);
     for ($i = 0; $i <= count($this->datagrid->column) - 1; $i++) {
         echo "<th>";
         if ($this->datagrid->column[$i] == 'category_id') {
             echo "category";
         } elseif($this->url['ordercolumn'] == $this->datagrid->column[$i]) {
             if($this->datagrid->url['order'] == 'desc'){
-                echo "<a href=\"index.php?ordercolumn=" . $this->datagrid->column[$i] . "&order=asc&tot=" . $this->datagrid->url['tot'] . "&p=1\">" . $this->datagrid->column[$i] . "</a>";
+                echo "<a href=\"index.php?ordercolumn=" . $this->datagrid->column[$i] . "&order=asc&tot=" . $this->datagrid->url['tot'] . "&p=1\">" . $this->datagrid->column[$i] . "<img style=\"margin:0;max-width:33px;float: right;\" src=\"assets/img/arrow_top.png\"></a>";
             }else{
-                echo "<a href=\"index.php?ordercolumn=" . $this->datagrid->column[$i] . "&order=desc&tot=" . $this->datagrid->url['tot'] . "&p=1\">" . $this->datagrid->column[$i] . "</a>";
+                echo "<a href=\"index.php?ordercolumn=" . $this->datagrid->column[$i] . "&order=desc&tot=" . $this->datagrid->url['tot'] . "&p=1\">" . $this->datagrid->column[$i] . "<img style=\"margin:0;max-width:33px;float: right;\" src=\"assets/img/arrow_bottom.png\"></a>";
             }
         }else{
             echo "<a href=\"index.php?ordercolumn=" . $this->datagrid->column[$i] . "&order=asc&tot=" . $this->datagrid->url['tot'] . "&p=1\">" . $this->datagrid->column[$i] . "</a>";
@@ -95,19 +94,27 @@ echo "</div>";
             echo "<select name=\"category_id\" style=\"height: 39px;margin-top: 1px;\">";
             echo "<option value=\"\">Toute</option>";
             foreach ($this->datagrid->category as $key => $value) {
-
-                echo "<option value=\"" . $this->datagrid->category[$key]['id'] . "\">" . $this->datagrid->category[$key]['name'] . "</option>";
+                if($this->datagrid->category[$key]['id'] == $this->url['category_id']){
+                    echo "<option selected value=\"" . $this->datagrid->category[$key]['id'] . "\">" . $this->datagrid->category[$key]['name'] . "</option>";
+                }else{
+                    echo "<option value=\"" . $this->datagrid->category[$key]['id'] . "\">" . $this->datagrid->category[$key]['name'] . "</option>";
+                }
             }
             echo "</select>";
         } else {
-            echo "<input value=\"\" type=\"text\" placeholder=\"Recherche : ".$this->datagrid->column[$i]."\" name=\"" . $this->datagrid->column[$i] . "\"></td>";
+            echo "<input value=";
+            if(isset($this->url[$this->datagrid->column[$i]])){
+                echo "\"".$this->url[$this->datagrid->column[$i]]."\"";
+            }else{
+                echo "\"\"";
+            }
+            echo "type=\"text\" placeholder=\"Recherche : ".$this->datagrid->column[$i]."\" name=\"" . $this->datagrid->column[$i] . "\"></td>";
         }
 
     }
     echo "<td><input type=\"submit\"></td>";
     echo "</form>";
     echo "</tr>";
-
     for ($i = 0; $i <= count($this->datagrid->data) - 1; $i++) {
         $in = 0;
         echo "<tr>";

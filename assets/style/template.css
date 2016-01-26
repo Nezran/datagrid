@@ -4,7 +4,7 @@ html{background: url(../img/background.png);}
 h1{display: inline-block;color: #e74c3c; font-family: Tangerine;font-weight: 100; font-size: 7vw;text-shadow: 1px 1px 3px rgba(0,0,0);}
 h2{color: rgb(228, 228, 228) !important;
     float: left;
-    width:100%;
+    width: calc(100% - 25px);
     font-family: Tangerine;
     font-weight: 100;
     background: rgb(37, 37, 37);
@@ -13,6 +13,52 @@ h2{color: rgb(228, 228, 228) !important;
     text-shadow: 1px 1px 3px rgba(35,35,35);
     margin-bottom: 20px;
     border-left: 5px solid #e74c3c;
+}
+input{
+    border-radius: 2px;
+    border: 1px solid #E74C3C;
+    outline: none;
+    padding: 5px;
+    margin: 5px;
+    line-height: 27px;
+}
+input:focus{
+    border: 2px solid #252525;
+    padding: 5px !important;
+}
+.alert strong {
+    color: #213E15;
+    margin-right: 5px;
+    font-weight: bold !important;
+}
+.alert{
+    max-width: 50%;
+    margin: 0 auto;
+    background-color: #5EAB3F;
+    border-color: #d6e9c6;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px;
+}
+.close {
+    float: right;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+input[type="submit"] {
+    border: 1px solid #CC4436;
+    background: #E74C3C;
+    padding: 10px;
+    color: #E4E4E4;
+}
+input[type="submit"]:hover{
+    cursor: pointer;
 }
 header img {
     margin-left: -40px;
@@ -98,16 +144,16 @@ span.line-right {
     height: 1px;
 }
 .page-link{
-    padding: 4px 5px 3px 5px;
+    margin-top: -3px;
+    padding: 5px 5px 6px 5px;
     background: rgba(249, 249, 249, 0.13);
     margin-left: 4px;
-    width: 20px;
-    display: block;
+    width: auto;
+    display: inline-block;
     line-height: 23px;
-    float: left;
     height: 20px;
     text-align: center;
-    border: 1px solid rgb(95, 95, 95);
+    border: 1px solid #5F5F5F;
 }
 .page-link:hover{
     background: rgba(249, 249, 249, 0.5);
@@ -149,7 +195,6 @@ table.data{
 }
 .data img{
     max-width: 18px;
-    float: left;
     margin: 5px;
 }
 .data .backyellow{

@@ -29,5 +29,5 @@
 				echo "</div>";
 			}
 		?>
-		<input type="submit" value="mettre à jour">
+		<input type="submit" value="Ajouter">
 </form>

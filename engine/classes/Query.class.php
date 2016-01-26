@@ -11,16 +11,40 @@ class Query
     public $url;
     public $nbrpage;
     public $totaldata;
+    public $alert;
 
     function __construct($database)
     {
         $this->database = $database;
+
         //$test = new ConnectPDO();
+    }
+    function checkdb(){
+        $req = $this->database->conn->prepare("SHOW TABLES FROM ".$this->database->config['dbname']." ");
+        $req->execute();
+        if ($req->rowCount() > 0) {
+            // on recupere le resultat sous forme de tableau imbriqué avec clé
+            $data = $req->fetchAll();
+            return $data;
+        } else {
+            echo "Error lors de la requête sql";
+        }
+    }
+    function checkcategory(){
+        $req = $this->database->conn->prepare("SELECT COLUMN_NAME, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='category' AND TABLE_SCHEMA='".$this->database->config['dbname']."'");
+        $req->execute();
+        if ($req->rowCount() > 0) {
+            // on recupere le resultat sous forme de tableau imbriqué avec clé
+            $data = $req->fetchAll();
+            return $data;
+        } else {
+            echo "Error lors de la requête sql";
+        }
     }
 
     function getColumn()
     {
-        $req = $this->database->conn->prepare("SELECT COLUMN_NAME, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='article'");
+        $req = $this->database->conn->prepare("SELECT COLUMN_NAME, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='article' AND TABLE_SCHEMA='".$this->database->config['dbname']."'");
         $req->execute();
         if ($req->rowCount() > 0) {
             // on recupere le resultat sous forme de tableau imbriqué avec clé
@@ -41,6 +65,8 @@ class Query
         if ($req->rowCount() > 0) {
             // on recupere le resultat sous forme de tableau imbriqué avec clé
             $this->category = $req->fetchAll();
+
+
             return $this->category;
         } else {
             echo "Error lors de la requête sql";
@@ -70,7 +96,6 @@ class Query
             $this->url['p'] = "1";
         }
         $req = $this->database->conn->prepare("SELECT * FROM article ".$where." ORDER BY " . $this->url['ordercolumn'] . " " . $url['order'] . " LIMIT " . (($this->url['p'] - 1) * $this->url['tot']) . "," . $this->url['tot'] . " ");
-        var_dump($req);
         // requete imbriquée pour trier la page courante
         // SELECT * FROM (SELECT * FROM article   LIMIT " . (($this->url['p'] - 1) * $this->url['tot']) . "," . $this->url['tot'] . ") a ".$where." ORDER BY a." . $this->url['ordercolumn'] . " " . $url['order'] . " ");
         $req->execute();
@@ -79,7 +104,7 @@ class Query
             $data = $req->fetchAll(\PDO::FETCH_OBJ);
             return $data;
         } else {
-            echo "Error lors de la requête sql";
+            $this->alert = "Aucun résultat";
         }
     }
 
@@ -100,6 +125,7 @@ class Query
         $req = $this->database->conn->prepare("DELETE FROM article WHERE id = " . $article_id . "");
         $req->execute();
         if ($req->rowCount() > 0) {
+            $this->alert = "Entrée supprimée";
         } else {
             echo "Error lors de la requête sql";
         }
@@ -122,33 +148,42 @@ class Query
     {
         //INSERT INTO `article` (`id`, `category_id`, `name`, `title`, `description`, `superapp`, `fabi`, `salut`) VALUES (NULL, '2', 'das', 'asd', 'asd', 'asd', 'asd', 'asd');
         $req = $this->database->conn->prepare("INSERT INTO article ($col) VALUES ($val) ");
-        var_dump($req);
         $req->execute();
-
+        if ($req->rowCount() > 0) {
+            $this->alert = "Informations ajoutées";
+        } else {
+            echo "Error lors de la requête sql";
+        }
     }
 
     function updateData($requete, $article_id)
     {
         $req = $this->database->conn->prepare("UPDATE article SET $requete WHERE `article`.`id` = $article_id;");
         $req->execute();
-
-    }
-
-    function addData($requete, $article_id)
-    {
-        $req = $this->database->conn->prepare("UPDATE article SET $requete WHERE `article`.`id` = $article_id;");
-        $req->execute();
+        if ($req->rowCount() > 0) {
+            $this->alert = "Informations mises à jour";
+        } else {
+            echo "Error lors de la requête sql";
+        }
     }
 
     function addcategory()
     {
         $req = $this->database->conn->prepare("INSERT INTO `category` (`id`, `name`) VALUES (NULL, '')");
         $req->execute();
+        if ($req->rowCount() > 0) {
+            $this->alert = "Nouvelle catégorie créée";
+        } else {
+            echo "Error lors de la requête sql";
+        }
     }
 
     function updatecategory($category_id, $name){
         $req = $this->database->conn->prepare("UPDATE category SET name = '$name' WHERE category.id = $category_id");
         $req->execute();
+        if ($req->rowCount() > 0) {
+            $this->alert = "Catégorie mise à jour";
+        }
     }
 
     function delcategory($category_id)
@@ -156,6 +191,7 @@ class Query
         $req = $this->database->conn->prepare("DELETE FROM category WHERE id = " . $category_id . "");
         $req->execute();
         if ($req->rowCount() > 0) {
+            $this->alert = "Catégorie supprimée";
         } else {
             echo "Error lors de la requête sql";
         }

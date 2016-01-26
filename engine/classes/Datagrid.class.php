@@ -6,6 +6,7 @@ class Datagrid extends Application
 
     public $url = array();
     public $query;
+    public $validetable = ['article','category'];
     public $validemethod = array();
     public $valideaction = array();
     public $column;
@@ -16,6 +17,7 @@ class Datagrid extends Application
     public $val;
     public $valsearch;
     public $where;
+    public $correct;
 
 
     function __construct($url, $validemethod, $post, $valideaction)
@@ -29,7 +31,34 @@ class Datagrid extends Application
 
     public function init()
     {
+
+
         $this->query = new Query(self::getDatabase());
+        $this->correct = $this->query->checkdb();
+        $vrai = 0;
+        foreach($this->correct as $key => $value){
+            if (in_array($this->correct[$key]['Tables_in_'.$this->query->database->config['dbname'].''], $this->validetable)) {
+                $vrai++;
+            }
+        }
+        if($vrai != 2){
+            echo "<h3>Votre base de donnée ne contient pas la table article et category !</h3>";
+            die();
+        }
+
+        $this->correct = $this->query->checkcategory();
+        $check = 0;
+        foreach( $this->correct as $key => $value){
+            if($this->correct[$key]['COLUMN_NAME'] == 'name' || $this->correct[$key]['COLUMN_NAME'] == 'id' ){
+                $check++;
+            }
+        }
+        if($check != 2){
+            echo "<h3>Votre table category ne contient pas les columns 'id' ou 'name'</h3>";
+            die();
+        }
+
+
         $this->column = $this->query->getColumn();
         $this->category = $this->query->getCategory();
 
@@ -50,6 +79,7 @@ class Datagrid extends Application
 
     }
 
+    // action
     public function search()
     {
         $this->valsearch = $this->query->getColumn();
@@ -57,57 +87,59 @@ class Datagrid extends Application
             if (in_array($key, $this->valsearch)) {
                 if (!empty($value)) {
                     $this->where .= " " . $key . " LIKE '%" . $value . "%' AND";
-                    $this->url['where'] = "&".$key."=".$value ;
+                    $this->url['where'] = "&" . $key . "=" . $value;
                 }
             }
         }
         if (!is_null($this->where)) {
             $this->where = rtrim($this->where, "AND");
-            $this->where = "WHERE ".$this->where;
-
-            $this->url['where'] = "&action=search".$this->url['where'];
-            var_dump($this->url['where']);
+            $this->where = "WHERE " . $this->where;
+            $this->url['where'] = "&action=search" . $this->url['where'];
         }
 
     }
 
+    // method
     public function showdata()
     {
         $this->data = $this->query->getData($this->url, $this->where);
     }
 
+    // method
     public function update()
     {
 
         $this->detail = $this->query->getDataDetail($this->url['article_id']);
     }
 
+    // method
     public function add()
     {
     }
 
+    // action
     public function delcat()
     {
         $this->query->delcategory($this->url['category_id']);
         $this->editcat();
     }
 
+    // method
     public function editcat()
     {
         $this->category = $this->query->getCategory();
     }
 
-
+    // action
     public function addcat()
     {
         $this->query->addcategory();
     }
-    public function updatecat(){
-        $this->category = $this->query->getCategory();
-        var_dump($this->category);
 
-    }
 
+
+
+    // action
     public function del()
     {
         $this->query->deleteData($this->url['article_id']);
@@ -116,22 +148,19 @@ class Datagrid extends Application
     public function getdatafromclient()
     {
         if (!empty($this->post)) {
-            echo "donnée dans le post";
-            if($this->post['action'] == 'updatecat'){
-                echo " prout ";
+            if ($this->post['action'] == 'updatecat') {
                 foreach ($this->post as $key => $value) {
-                    if($key != 'action'){
-                       // $this->requete .= "$key = '$value' ,";
+                    if ($key != 'action') {
+                        // $this->requete .= "$key = '$value' ,";
                         $this->query->updatecategory($key, $value);
                         //UPDATE category SET `name` = 'Microsofta' WHERE `category`.`id` = 2;
                     }
                 }
-
-            }elseif($this->post['action'] == 'insertdata'){
+            } elseif ($this->post['action'] == 'insertdata') {
                 if (!empty($this->post['id'])) {
                     foreach ($this->post as $key => $value) {
-                        if ($key != 'id' ) {
-                            if($key != 'action'){
+                        if ($key != 'id') {
+                            if ($key != 'action') {
                                 $this->requete .= "$key = '$value' ,";
                             }
                         }
@@ -140,7 +169,7 @@ class Datagrid extends Application
                     $this->query->updateData($this->requete, $this->post['id']);
                 } else {
                     foreach ($this->post as $key => $value) {
-                        if($key != 'action'){
+                        if ($key != 'action') {
                             $this->col .= "$key,";
                             $this->val .= "'$value',";
                         }
@@ -148,7 +177,6 @@ class Datagrid extends Application
                     $this->col = trim($this->col, ",");
                     $this->val = trim($this->val, ",");
                     $this->query->insertData($this->col, $this->val);
-                    echo "post sans id";
                 }
             }
         }

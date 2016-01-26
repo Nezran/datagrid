@@ -51,11 +51,6 @@ class Routing
         if (!isset($this->url['ordercolumn'])) {
             $this->url['ordercolumn'] = "id";
         }
-
-
-        var_dump($this->url);
-
-
         $this->datagrid = new Datagrid($this->url, $this->validemethod, $this->post, $this->valideaction);
         $this->template();
     }

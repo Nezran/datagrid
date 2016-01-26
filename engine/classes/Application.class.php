@@ -8,8 +8,11 @@ class Application
 
     public function __construct()
     {
+        // lancement de l'autoloadx
         spl_autoload_register(array(__CLASS__, 'autoload'));
+        // lance le routing de l'app
         self::geturl();
+        // connexion à la bd
         self::getDatabase();
 
     }
@@ -25,24 +28,11 @@ class Application
 
     function geturl()
     {
-        $routing = new Routing(array_map('htmlentities', $_GET), array_map('htmlentities', $_POST));
+        $routing = new Routing(array_map('htmlentities', array_map('addslashes', $_GET)), array_map('htmlentities', array_map('addslashes', $_POST)));
     }
 
-    function getConfig()
-    {
 
-    }
 
-    function getdbinfo()
-    {
-        $this->database = new ConnectPDO(self::$config["db"]);
-        $this->database->connect();
-        $name = new Query($this->database);
-    }
-
-    /**
-     * @return mixed
-     */
     public static function getDatabase()
     {
         $config = include("engine/config/config.php");

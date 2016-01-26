@@ -14,7 +14,7 @@ class ConnectPDO
   public function connect(){
     $this->conn = null;
       try{
-          $this->conn = new \PDO("mysql:host=" . $this->config['host'] . ";dbname=" . $this->config['dbname'], $this->config['user'], $this->config['password']);
+          $this->conn = new \PDO("mysql:host=" . $this->config['host'] . ";dbname=" . $this->config['dbname'], $this->config['user'], $this->config['password'],  array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
           $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
           $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
       }catch(PDOException $exception){
