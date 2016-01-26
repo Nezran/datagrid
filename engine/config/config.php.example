@@ -1,10 +1,10 @@
 <?php
 return array(
 	'db' => array(
-		'host'		=> 'localhost',
-		'user'		=> 'root',
+		'host'		=> '',
+		'user'		=> '',
 		'password'	=> '',
-		'dbname'	=> 'datagrid',
+		'dbname'	=> '',
 	),
 	'schema' => array(
 		// Votre table qui contient vos données
