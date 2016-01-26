@@ -20,6 +20,7 @@ class Routing
     function __construct($get, $post)
     {
         self::route($get, $post);
+
     }
 
     public function route($get, $post)

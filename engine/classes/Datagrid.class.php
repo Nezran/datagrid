@@ -26,37 +26,12 @@ class Datagrid extends Application
         $this->valideaction = $valideaction;
         $this->url = $url;
         $this->post = $post;
+        $this->query = new Query(self::getDatabase());
         $this->init();
     }
 
     public function init()
     {
-
-
-        $this->query = new Query(self::getDatabase());
-        $this->correct = $this->query->checkdb();
-        $vrai = 0;
-        foreach($this->correct as $key => $value){
-            if (in_array($this->correct[$key]['Tables_in_'.$this->query->database->config['dbname'].''], $this->validetable)) {
-                $vrai++;
-            }
-        }
-        if($vrai != 2){
-            echo "<h3>Votre base de donnée ne contient pas la table article et category !</h3>";
-            die();
-        }
-
-        $this->correct = $this->query->checkcategory();
-        $check = 0;
-        foreach( $this->correct as $key => $value){
-            if($this->correct[$key]['COLUMN_NAME'] == 'name' || $this->correct[$key]['COLUMN_NAME'] == 'id' ){
-                $check++;
-            }
-        }
-        if($check != 2){
-            echo "<h3>Votre table category ne contient pas les columns 'id' ou 'name'</h3>";
-            die();
-        }
 
 
         $this->column = $this->query->getColumn();

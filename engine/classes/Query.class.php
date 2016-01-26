@@ -19,32 +19,10 @@ class Query
 
         //$test = new ConnectPDO();
     }
-    function checkdb(){
-        $req = $this->database->conn->prepare("SHOW TABLES FROM ".$this->database->config['dbname']." ");
-        $req->execute();
-        if ($req->rowCount() > 0) {
-            // on recupere le resultat sous forme de tableau imbriqué avec clé
-            $data = $req->fetchAll();
-            return $data;
-        } else {
-            echo "Error lors de la requête sql";
-        }
-    }
-    function checkcategory(){
-        $req = $this->database->conn->prepare("SELECT COLUMN_NAME, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='category' AND TABLE_SCHEMA='".$this->database->config['dbname']."'");
-        $req->execute();
-        if ($req->rowCount() > 0) {
-            // on recupere le resultat sous forme de tableau imbriqué avec clé
-            $data = $req->fetchAll();
-            return $data;
-        } else {
-            echo "Error lors de la requête sql";
-        }
-    }
 
     function getColumn()
     {
-        $req = $this->database->conn->prepare("SELECT COLUMN_NAME, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='article' AND TABLE_SCHEMA='".$this->database->config['dbname']."'");
+        $req = $this->database->conn->prepare("SELECT COLUMN_NAME, COLUMN_COMMENT FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='".$this->database->config['schema']['table_data']."' AND TABLE_SCHEMA='".$this->database->config['db']['dbname']."'");
         $req->execute();
         if ($req->rowCount() > 0) {
             // on recupere le resultat sous forme de tableau imbriqué avec clé
@@ -60,7 +38,7 @@ class Query
 
     function getCategory()
     {
-        $req = $this->database->conn->prepare("SELECT * FROM category");
+        $req = $this->database->conn->prepare("SELECT * FROM ".$this->database->config['schema']['table_category']."");
         $req->execute();
         if ($req->rowCount() > 0) {
             // on recupere le resultat sous forme de tableau imbriqué avec clé
@@ -77,7 +55,7 @@ class Query
     {
         if(!isset($where)){$where="";}
         $this->url = $url;
-        $req = $this->database->conn->prepare("SELECT COUNT(id) AS nbrarticle FROM article");
+        $req = $this->database->conn->prepare("SELECT COUNT(".$this->database->config['schema']['table_data_id'].") AS nbrarticle FROM ".$this->database->config['schema']['table_data']."");
         $req->execute();
         if ($req->rowCount() > 0) {
             $total = $req->fetch();
@@ -95,7 +73,7 @@ class Query
         if (!isset($this->url['p']) || (!is_numeric($this->url['p'])) || ($this->url['p'] > $this->nbrpage)) {
             $this->url['p'] = "1";
         }
-        $req = $this->database->conn->prepare("SELECT * FROM article ".$where." ORDER BY " . $this->url['ordercolumn'] . " " . $url['order'] . " LIMIT " . (($this->url['p'] - 1) * $this->url['tot']) . "," . $this->url['tot'] . " ");
+        $req = $this->database->conn->prepare("SELECT * FROM ".$this->database->config['schema']['table_data']." ".$where." ORDER BY " . $this->url['ordercolumn'] . " " . $url['order'] . " LIMIT " . (($this->url['p'] - 1) * $this->url['tot']) . "," . $this->url['tot'] . " ");
         // requete imbriquée pour trier la page courante
         // SELECT * FROM (SELECT * FROM article   LIMIT " . (($this->url['p'] - 1) * $this->url['tot']) . "," . $this->url['tot'] . ") a ".$where." ORDER BY a." . $this->url['ordercolumn'] . " " . $url['order'] . " ");
         $req->execute();
@@ -110,7 +88,7 @@ class Query
 
     function getTotaldata()
     {
-        $req = $this->database->conn->prepare("SELECT COUNT(id) AS FROM article");
+        $req = $this->database->conn->prepare("SELECT COUNT(".$this->database->config['schema']['table_data_id'].") AS FROM ".$this->database->config['schema']['table_data']."");
         $req->execute();
         if ($req->rowCount() > 0) {
             $data = $req->fetchAll(\PDO::FETCH_OBJ);
@@ -122,7 +100,7 @@ class Query
 
     function deleteData($article_id)
     {
-        $req = $this->database->conn->prepare("DELETE FROM article WHERE id = " . $article_id . "");
+        $req = $this->database->conn->prepare("DELETE FROM ".$this->database->config['schema']['table_data']." WHERE ".$this->database->config['schema']['table_data_id']." = " . $article_id . "");
         $req->execute();
         if ($req->rowCount() > 0) {
             $this->alert = "Entrée supprimée";
@@ -134,7 +112,7 @@ class Query
 
     function getDataDetail($article_id)
     {
-        $req = $this->database->conn->prepare("SELECT * FROM article WHERE id = " . $article_id . "");
+        $req = $this->database->conn->prepare("SELECT * FROM ".$this->database->config['schema']['table_data']." WHERE ".$this->database->config['schema']['table_data_id']." = " . $article_id . "");
         $req->execute();
         if ($req->rowCount() > 0) {
             $data = $req->fetchAll(\PDO::FETCH_OBJ);
@@ -147,7 +125,7 @@ class Query
     function insertData($col, $val)
     {
         //INSERT INTO `article` (`id`, `category_id`, `name`, `title`, `description`, `superapp`, `fabi`, `salut`) VALUES (NULL, '2', 'das', 'asd', 'asd', 'asd', 'asd', 'asd');
-        $req = $this->database->conn->prepare("INSERT INTO article ($col) VALUES ($val) ");
+        $req = $this->database->conn->prepare("INSERT INTO ".$this->database->config['schema']['table_data']." ($col) VALUES ($val) ");
         $req->execute();
         if ($req->rowCount() > 0) {
             $this->alert = "Informations ajoutées";
@@ -158,7 +136,7 @@ class Query
 
     function updateData($requete, $article_id)
     {
-        $req = $this->database->conn->prepare("UPDATE article SET $requete WHERE `article`.`id` = $article_id;");
+        $req = $this->database->conn->prepare("UPDATE ".$this->database->config['schema']['table_data']." SET $requete WHERE ".$this->database->config['schema']['table_data'].".".$this->database->config['schema']['table_data_id']." = $article_id;");
         $req->execute();
         if ($req->rowCount() > 0) {
             $this->alert = "Informations mises à jour";
@@ -169,7 +147,7 @@ class Query
 
     function addcategory()
     {
-        $req = $this->database->conn->prepare("INSERT INTO `category` (`id`, `name`) VALUES (NULL, '')");
+        $req = $this->database->conn->prepare("INSERT INTO ".$this->database->config['schema']['table_category']." (".$this->database->config['schema']['table_category_id'].", ".$this->database->config['schema']['table_category_name'].") VALUES (NULL, '')");
         $req->execute();
         if ($req->rowCount() > 0) {
             $this->alert = "Nouvelle catégorie créée";
@@ -179,7 +157,7 @@ class Query
     }
 
     function updatecategory($category_id, $name){
-        $req = $this->database->conn->prepare("UPDATE category SET name = '$name' WHERE category.id = $category_id");
+        $req = $this->database->conn->prepare("UPDATE ".$this->database->config['schema']['table_category']." SET ".$this->database->config['schema']['table_category_name']." = '$name' WHERE ".$this->database->config['schema']['table_category'].".".$this->database->config['schema']['table_category_id']." = $category_id");
         $req->execute();
         if ($req->rowCount() > 0) {
             $this->alert = "Catégorie mise à jour";
@@ -188,7 +166,7 @@ class Query
 
     function delcategory($category_id)
     {
-        $req = $this->database->conn->prepare("DELETE FROM category WHERE id = " . $category_id . "");
+        $req = $this->database->conn->prepare("DELETE FROM ".$this->database->config['schema']['table_category']." WHERE ".$this->database->config['schema']['table_category_id']." = " . $category_id . "");
         $req->execute();
         if ($req->rowCount() > 0) {
             $this->alert = "Catégorie supprimée";

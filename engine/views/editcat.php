@@ -8,7 +8,7 @@
 
 foreach($this->datagrid->category as $key => $value){
     echo "<p>".$this->datagrid->category[$key]['id']." &nbsp;";
-    echo "<input value=\"".$this->datagrid->category[$key]['name']."\" name=\"".$this->datagrid->category[$key]['id']."\">";
+    echo "<input value=\"".$this->datagrid->category[$key][$this->datagrid->query->database->config['schema']['table_category_name']]."\" name=\"".$this->datagrid->category[$key][$this->datagrid->query->database->config['schema']['table_category_id']]."\">";
     echo "<a href=\"index.php?method=editcat&action=delcat&category_id=".$this->datagrid->category[$key]['id']."\"><img src=\"assets/img/del.png\"></a></p>";
 }
 ?>

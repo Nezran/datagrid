@@ -2,7 +2,7 @@
 
 <?php
 echo "<pre>";
-//var_dump($this->datagrid);
+var_dump($this->datagrid->query->database->config['schema']['table_data']);
 echo "</pre>";
 
 echo "<br>";
@@ -63,7 +63,7 @@ echo "</div>";
     <?php
     for ($i = 0; $i <= count($this->datagrid->column) - 1; $i++) {
         echo "<th>";
-        if ($this->datagrid->column[$i] == 'category_id') {
+        if ($this->datagrid->column[$i] == $this->datagrid->query->database->config['schema']['table_data_categoryid']) {
             echo "category";
         } elseif($this->url['ordercolumn'] == $this->datagrid->column[$i]) {
             if($this->datagrid->url['order'] == 'desc'){
@@ -90,14 +90,14 @@ echo "</div>";
     echo "<input hidden name=\"tot\" value=\"".$this->datagrid->url['tot']."\">";
     for ($i = 0; $i <= count($this->datagrid->column) - 1; $i++) {
         echo "<td>";
-        if ($this->datagrid->column[$i] == 'category_id') {
+        if ($this->datagrid->column[$i] == $this->datagrid->query->database->config['schema']['table_data_categoryid']) {
             echo "<select name=\"category_id\" style=\"height: 39px;margin-top: 1px;\">";
             echo "<option value=\"\">Toute</option>";
             foreach ($this->datagrid->category as $key => $value) {
                 if($this->datagrid->category[$key]['id'] == $this->url['category_id']){
-                    echo "<option selected value=\"" . $this->datagrid->category[$key]['id'] . "\">" . $this->datagrid->category[$key]['name'] . "</option>";
+                    echo "<option selected value=\"" . $this->datagrid->category[$key][$this->datagrid->query->database->config['schema']['table_category_id']] . "\">" . $this->datagrid->category[$key][$this->datagrid->query->database->config['schema']['table_category_name']] . "</option>";
                 }else{
-                    echo "<option value=\"" . $this->datagrid->category[$key]['id'] . "\">" . $this->datagrid->category[$key]['name'] . "</option>";
+                    echo "<option value=\"" . $this->datagrid->category[$key][$this->datagrid->query->database->config['schema']['table_category_id']] . "\">" . $this->datagrid->category[$key][$this->datagrid->query->database->config['schema']['table_category_name']] . "</option>";
                 }
             }
             echo "</select>";
@@ -124,7 +124,7 @@ echo "</div>";
             if ($column == 'category_id') {
                 for ($c = 0; $c <= count($this->datagrid->category) - 1; $c++) {
                     if ($this->datagrid->category[$c]['id'] == $this->datagrid->data[$i]->$column) {
-                        echo "<td>" . $this->datagrid->category[$c]['name'] . "</td>";
+                        echo "<td>" . $this->datagrid->category[$c][$this->datagrid->query->database->config['schema']['table_category_name']] . "</td>";
                     }
                 }
             } else {

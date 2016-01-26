@@ -15,6 +15,7 @@ class Application
         // connexion à la bd
         self::getDatabase();
 
+
     }
 
     static function autoload($className)
@@ -25,6 +26,7 @@ class Application
         else
             throw new \Exception("Fichier " . $file . " introuvable");
     }
+
 
     function geturl()
     {
@@ -40,12 +42,14 @@ class Application
             throw new \Exception("Le nombre d'arguments de la config n'est pas valable!");
         }
         self::$config = $config;
-        self::$database = new ConnectPDO(self::$config["db"]);
+        self::$database = new ConnectPDO(self::$config);
         self::$database->connect();
         //$name = new Query(self::$database);
 
         return self::$database;
     }
+
+
 
 
 }
