@@ -37,7 +37,12 @@ class Application
 
     public static function getDatabase()
     {
-        $config = include("engine/config/config.php");
+        if(!file_exists("engine/config/config.php")){
+            echo "Merci de remplir et renommer votre config en config.php<br> A cette adresse engine/config/config.php";
+            die();
+        }
+        $config = require("engine/config/config.php");
+
         if (count($config["db"]) != 4) {
             throw new \Exception("Le nombre d'arguments de la config n'est pas valable!");
         }

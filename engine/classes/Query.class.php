@@ -141,7 +141,7 @@ class Query
         if ($req->rowCount() > 0) {
             $this->alert = "Informations mises à jour";
         } else {
-            echo "Error lors de la requête sql";
+            $this->alert = "Aucun changement";
         }
     }
 
